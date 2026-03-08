@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capsules</title>
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+    <nav class ="navBar">
+    <div class="logo">🌙Hoda's Cosmic Capsule</div>
+    <ul class="links"id="navlinks"><!--i try to use id since it was not working using querySelector-->
+        <li><a href="index.html">Home</a></li>
+           <li><a href="capsule.html">Capsules</a></li>
+              <li><a href="statistic.html">Statistics</a></li>
+               <li><a href="favorites.html">Favorites</a></li>
+              <li><span class="theme-change"onclick="toggleTheme()">🌸</span></li>
+    </ul>
+    <div class="humburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</nav>
+
+<div class="bg-animation">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+    <div id="stars4"></div>
+</div>
+
+<section id="statistics">
+    <div class="statistic-container">
+        <h2>📊 My Statistics</h2>
+        <div id="statisticList"></div>
+    </div>
+</section>
+
+
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-sec">
+        <h3>🌙 Hoda's Cosmic Capsule</h3>
+        <p>Save your memories for the future !</p>
+        </div>
+    </div>
+    <div class="rights">
+        <p>&copy; 2026 Hoda Nshawy | All rights reserved</p>
+    </div>
+
+</footer>
+<script src="statistic.js"></script>  
+</body>
+</html>

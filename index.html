@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+ 
+
+<nav class ="navBar">
+    <div class="logo">🌙Hoda's Cosmic Capsule</div>
+    <ul class="links"id="navlinks"><!--i try to use id since it was not working using querySelector-->
+        <li><a href="index.html">Home</a></li>
+           <li><a href="capsule.html">Capsules</a></li>
+              <li><a href="statistic.html">Statistics</a></li>
+               <li><a href="Favorites.html">Favorites</a></li>
+              <li><span class="theme-change"onclick="toggleTheme()">🌸</span></li>
+    </ul>
+    <div class="humburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</nav>
+<div class="bg-animation">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+    <div id="stars4"></div>
+</div>
+<section id="home">
+    <div class="quote-Container">
+        <div class="box">
+            <p id="quoteText">"Loading inspiration..."</p>
+            <p id="quoteAuthor"></p>
+            <button class="newBtn">🔁New Quote</button>
+        </div>
+    </div>
+    <div class="moon-weather-container">
+        <div class="moon-card">
+            <div class="icon"id="moonIcon">🌙</div> <!--HODAA change it later-->
+            <div class="info">
+                <h3 id="moonPhaseName">Loading...</h3>
+                <p id="moonillumination"></p>
+            </div>
+        </div>
+        <div class="weather-card">
+              <div class="icon"id="weatherIcon">🌄</div> <!--HODAA change it later-->
+            <div class="info">
+                <h3 id="weatherTemp">Loading...</h3>
+                <p id="weatherdes"></p>
+
+        </div>
+    </div>
+    </div>
+
+<div class="Capsule-Section">
+    <h2>🔮 Create Your Time Capsule</h2>
+    <div class ="Container-form">
+    <div class="group">
+        <label>📝 Letter Title</label>
+        <input type="text"id="title" placehoder="e.g , My hopes for 2025...">
+    </div>
+    <div class="group">
+        <label>💌 Write to Your Future Self</label>
+        <textarea id="text" placehoder="Dear future me !, Today I feel....I hope....I dream....,Making memories.."></textarea>
+    </div>
+    <div class="group">
+        <label>☺️How are you feeling today ? </label>
+        <div class="userMood-selected">
+            <button type="button"class="mood-button" data-mood="happy" onclick="selectMood(this)">😊</button>
+            <button type="button"class="mood-button" data-mood="sad" onclick="selectMood(this)">😓</button>
+            <button type="button"class="mood-button" data-mood="excited" onclick="selectMood(this)">🤩</button>
+             <button type="button"class="mood-button" data-mood="calm" onclick="selectMood(this)">😌</button>
+              <button type="button"class="mood-button" data-mood="curious" onclick="selectMood(this)">🤔</button>
+                <button type="button"class="mood-button" data-mood="determined" onclick="selectMood(this)">💪</button>
+                 <button type="button"class="mood-button" data-mood="hopeful" onclick="selectMood(this)">✨</button>
+                     <button type="button"class="mood-button" data-mood="angry" onclick="selectMood(this)">😠</button>
+                     <button type="button"class="mood-button" data-mood="confident" onclick="selectMood(this)">😎</button>
+                        <button type="button"class="mood-button" data-mood="lovely" onclick="selectMood(this)">🥰</button>
+                        <button type="button"class="mood-button" data-mood="shy" onclick="selectMood(this)">😳</button>
+                        <button type="button"class="mood-button" data-mood="celebrate" onclick="selectMood(this)">🥳</button>
+                        <button type="button"class="mood-button" data-mood="headache" onclick="selectMood(this)">🤕</button>
+                        <button type="button"class="mood-button" data-mood="verySad" onclick="selectMood(this)">😭</button>
+        </div>
+    </div>
+    <div class="group">
+        <label class="file-upload"for="userPhoto" >📸 Attach a Photo (Optional)</label><!--In order to make the label have the same function as input(file)The for in label should have the same name as the id -->
+            <input type="file" id="userPhoto" name="image_uploads" accept="image/*"> <!-- <input type="file" id="photo-upload" name="photos" accept="image/*" multiple />HOODAA Later on add this-->
+    </div>
+<div class="group">
+    <label>🗓️ Unlock Data</label>   <!--Hoda change the emoji later-->
+   <select id="unlockTime">
+     <option value="1"onclick="selectOption(this)">1 Minute from now (Test!)</option>
+     <option value="7"onclick="selectOption(this)">1 week from now</option>
+     <option value="30"onclick="selectOption(this)">1 Month from now</option>
+       <option value="365"onclick="selectOption(this)">1 Year from now</option>
+         <option value="1825"onclick="selectOption(this)">5 Year from now</option>
+          <option value="3650"onclick="selectOption(this)">10 Year from now</option>
+   </select>
+</div>
+<div class="center-btn">
+<button class="finish-btn"onclick="craeteCapsule()">🪄Seal My Time Capsule</button>
+</div>
+</div>
+</div>
+</section>
+<!--<button onclick="testNotification()" style="padding:10px"></button>-->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-sec">
+        <h3>🌙 Hoda's Cosmic Capsule</h3>
+        <p>Save your memories for the future !</p>
+        </div>
+    </div>
+    <div class="rights">
+        <p>&copy; 2026 Hoda Nshawy | All rights reserved</p>
+    </div>
+
+</footer>
+<script src="capsule.js"></script>
+<script src="notification.js"></script>
+
+</body>
+</html>
