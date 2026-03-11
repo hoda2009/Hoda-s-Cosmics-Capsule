@@ -79,7 +79,7 @@ let capsules=JSON.parse(localStorage.getItem("capsules")) || [];
 //console.log("capsules from storage",capsules)
 if(capsules.length===0){
     console.log("NO capsules found")
-    capsuleList.innerHTML='<div class="no-capsules">NO CAPSULES YET ! Create your first time capsule !!</div>'
+    capsuleList.innerHTML='<div class="no-capsules">NO CAPSULES YET ! GOOO Create your first TIME CAPSULE !!!⌛</div>'
     return
 }
 console.log("We have capsules found ")
@@ -117,6 +117,7 @@ let allCardsHTML = "";
 
     const diffDay= unLockDate-userClickNow //difference in millisecond
     const year=Math.floor(diffDay/(1000*60*60*24*365));
+    //remaining after year
     const month=Math.floor((diffDay % (1000*60*60*24*365))/(1000*60*60*24*30));
     const day=Math.floor((diffDay % (1000*60*60*24*30))/(1000*60*60*24));
     const hour=Math.floor((diffDay % (1000*60*60*24))/(1000*60*60));
@@ -125,6 +126,7 @@ let allCardsHTML = "";
     const dateDis= unLockDate.toLocaleDateString('en-US',
         {
         year:"numeric",month:"long",day:'numeric'});
+      //console.log("date:"+dateDis)
 
     const moodEmoji=mood[capsule.UserMood];
 
@@ -206,7 +208,7 @@ function deleteCapsule(index){
     header.className="letter-header";
      
     const headerTitle=document.createElement('h2');
-    headerTitle.textContent="✨✨🌟 YOUR TIME CAPSULE HAS UNLOCKED ! 🌟✨✨";
+    headerTitle.textContent="🌟 YOUR TIME CAPSULE HAS UNLOCKED ! 🌟";
     header.appendChild(headerTitle);
 
     const userInfo=document.createElement('div');
@@ -369,8 +371,10 @@ document.body.appendChild(createDiv);
       favoriteList.innerHTML +=displayFavo;
    });
 
- }
+  }
 
   displayFavorites()
+
+  
 
   

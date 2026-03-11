@@ -41,7 +41,7 @@ function displayFavorites(){
    
     favoriteList.innerHTML=""
   if (favoritesLetter.length===0){
-    favoriteList.innerHTML='<div class="no-favorites">✨ NO favorites yet! Save some capsules! 🗃️</div>';
+    favoriteList.innerHTML='<div class="no-favorites">✨ NO favorites yet ! Save some capsules! 🗃️</div>';
     return
   }
 

@@ -95,13 +95,13 @@ function craeteCapsule() {
     const file = photoInput.files[0];
 
     if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
+        const reader = new FileReader(); // hodaa its create a FileReader object
+        reader.onload = function(e) { 
             const base64Image = e.target.result;
             // Pass the image data to the save function
             completeSaving(title, textContent, base64Image, unLockDay);
-        };
-        reader.readAsDataURL(file);
+        };//when done reading ,run this code
+        reader.readAsDataURL(file); //convert into string
     } else {
         // No photo? Pass null
         completeSaving(title, textContent, null, unLockDay);
@@ -109,19 +109,21 @@ function craeteCapsule() {
 }
 
 //  This function handles the actual math and saving
-function completeSaving(title, textContent, photoData, unLockDay) {
-    let addedTimeMlls;
-    if (unLockDay === 1) {
-        addedTimeMlls = 1 * 60 * 1000; // 1 minute
+function completeSaving(title, textContent, photoData, unLockDay) { //take 4 parameters
+    let addedTimeMlls; //to store the time delay in milliseconds
+    if (unLockDay === 1) {   //i calculate time in milliseconds
+        addedTimeMlls = 1 * 60 * 1000; //only for 1 minute
     } else {
-        addedTimeMlls = unLockDay * 24 * 60 * 60 * 1000;
+        addedTimeMlls = unLockDay * 24 * 60 * 60 * 1000;  //hodaa this is the standard way to convert day to millisecond ..24hr 60min in an hour 60seconds in minute 1000 milliseconds in a seconds
     }
 
-    const nowMlls = Date.now();
-    const totalMlls = nowMlls + addedTimeMlls;
+    const nowMlls = Date.now();//to get the current timestamp in milliseconds
+    console.log("testing:"+nowMlls)
+    const totalMlls = nowMlls + addedTimeMlls;//calculate unlock time
     const unLockDate = new Date(totalMlls);
-     let notificationTime=new Date(unLockDate);
-  notificationTime.setMinutes(notificationTime.getTime() -5);
+     let notificationTime=new Date(unLockDate);//im copy it 
+     //subtract 5 min for notification
+  notificationTime.setMinutes(notificationTime.getTime() -5);//noww  notificationTime is 5 min before the unlockedtime!
     
 
 
@@ -131,7 +133,7 @@ function completeSaving(title, textContent, photoData, unLockDay) {
         content: textContent,
         UserMood: userSelectedMood,
         UserPhoto: photoData, // Hodaa look at localStorage !!
-        unlockDay: unLockDate.toISOString(),
+        unlockDay: unLockDate.toISOString(),//convert it to a string format ,it make it easy to stoore in local storage
         firstCreated: new Date().toISOString()
     };
 
@@ -150,7 +152,7 @@ startNotificationChecker();
         button.classList.remove('selected');
     });
 }
-//Web Notifications API
+//Browser Notification API
 Notification.requestPermission().then(function(permission){
     if(permission==="granted"){
         console.log("Notification permissin granted !")
@@ -176,7 +178,7 @@ function sendNotification(title,message){
 
 
 // to check the time every minute    
-function startNotificationChecker() {
+function startNotificationChecker() { //check every 1 min
     setInterval(()=>{
          let capsules = JSON.parse(localStorage.getItem("capsules")) || [];
          let userClickNow=new Date();
@@ -184,7 +186,7 @@ function startNotificationChecker() {
             let notificationTime=newDate(capsule.notificationTime);
         if( userClickNow>= notificationTime){
             sendNotification(
-                "⌛Capsule Unlocking Soon!,"
+                "🎊🎉Capsule Unlocking Soon!,"
                 `${capsule.title} will unlock in 5 minutes !!⏰`
             
             );
@@ -208,3 +210,40 @@ function startNotificationChecker() {
         Notification.requestPermission();
     }
 }*/ //Amazinggggg its working hodaaaa try it !!*/
+
+
+const loader=document.getElementById("preloader")
+window.addEventListener("load",hidePreLoader);
+function hidePreLoader(){
+    loader.style.display="none";
+    
+}
+
+function fetchAdvice(){
+fetch("https://api.adviceslip.com/advice")
+.then(response=>response.json())
+.then(data=>{
+    document.getElementById("advise").textContent=data.slip.advice;
+})
+
+
+
+}
+fetchAdvice();
+
+const changeAdvise =document.getElementById("advisebtn")
+changeAdvise.addEventListener("click",fetchAdvice)
+
+
+
+function fetchFunFact(){
+    fetch("https://uselessfacts.jsph.pl/api/v2/facts/random?language=en")
+    .then(response=>response.json())
+    .then(data=>{
+    document.getElementById("fact").textContent=data.text;
+})
+}
+fetchFunFact()
+
+const changefact =document.getElementById("factbtn")
+changefact.addEventListener("click",fetchFunFact)

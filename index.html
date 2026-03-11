@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create Your Fisrt Capsule</title>
     <link rel="stylesheet" href="style.css" />
-</head>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200..900&display=swap"rel="stylesheet">
+    <link rel="icon"type="imge/png" href="./assets/Canva-moon.png">
 <body>
  
-
+<div id="preloader"></div>
 <nav class ="navBar">
     <div class="logo">🌙Hoda's Cosmic Capsule</div>
     <ul class="links"id="navlinks"><!--i try to use id since it was not working using querySelector-->
@@ -38,34 +39,35 @@
             <button class="newBtn">🔁New Quote</button>
         </div>
     </div>
-    <div class="moon-weather-container">
-        <div class="moon-card">
-            <div class="icon"id="moonIcon">🌙</div> <!--HODAA change it later-->
+    <div class="advise-weather-container">
+        <div class="small-card">
+            <div class="icon">💡Advise</div> <!--HODAA change it later-->
             <div class="info">
-                <h3 id="moonPhaseName">Loading...</h3>
-                <p id="moonillumination"></p>
+                <p id="advise">Loading Advise...</p>
+                 <button id="advisebtn"class="newBtn">🔁New Advise</button>
             </div>
         </div>
-        <div class="weather-card">
-              <div class="icon"id="weatherIcon">🌄</div> <!--HODAA change it later-->
+        <div class="small-card">
+              <div class="icon"id="weatherIcon">📜Fun Facts</div> <!--HODAA change it later-->
             <div class="info">
-                <h3 id="weatherTemp">Loading...</h3>
-                <p id="weatherdes"></p>
+                <p id="fact">Loading fun fact...</p>
+                  <button id="factbtn"class="newBtn">🔁New Fun Fact</button>
 
         </div>
     </div>
     </div>
 
 <div class="Capsule-Section">
-    <h2>🔮 Create Your Time Capsule</h2>
+    <h2>
+        <span class="emoji">🔮</span><span class="title-text">Create Your Time Capsule</span> </h2>
     <div class ="Container-form">
     <div class="group">
-        <label>📝 Letter Title</label>
-        <input type="text"id="title" placehoder="e.g , My hopes for 2025...">
+        <label> <span class="emoji">📝</span><span class="first">Letter Title</span> </label>
+        <input type="text"id="title" placeholder="e.g , My hopes for 2026...">
     </div>
     <div class="group">
         <label>💌 Write to Your Future Self</label>
-        <textarea id="text" placehoder="Dear future me !, Today I feel....I hope....I dream....,Making memories.."></textarea>
+        <textarea id="text" placeholder="Dear future me !, Today I feel.... I hope.... I dream...., Making memories .."></textarea>
     </div>
     <div class="group">
         <label>☺️How are you feeling today ? </label>
