@@ -95,20 +95,22 @@ function  displayStatistics(totalCapsules,lockedCapsules,unlockedCapsules,favori
     'verySad':'😭',
   };
 
+  // Calculate the width based on whether there's data
+const totalBarWidth = totalCapsules > 0 ? "100%" : "0%";
   const displayStatistic=`
-  <div class="stat-item">
-  <div class="label">Total Capsules </div>
-   <div class="stat-bar">
-  <div class="bar" style="width: 100%;background:#ffd700;"></div>
-  </div>
-  <div class="value">${totalCapsules}</div>
+<div class="stat-item">
+    <div class="label">Total Capsules</div>
+    <div class="stat-bar">
+      <div class="bar" style="width: ${totalBarWidth}; background:#ffd700;"></div>
+    </div>
+    <div class="value">${totalCapsules}</div>
   </div>
 
   
   <div class="stat-item">
    <div class="label">Locked</div>
    <div class="stat-bar">
-    <div class="bar" style="width: ${lockedCapsules >0 ? (lockedCapsules /totalCapsules*100):0}%;background:#ff6b6b;"></div>
+   <div class="bar" style="width: ${totalCapsules > 0 ? Math.min((lockedCapsules / totalCapsules * 100), 100) : 0}%; background:#ff6b6b;"></div>
     </div>
    <div class="value">${lockedCapsules}</div>
    </div>
@@ -117,7 +119,7 @@ function  displayStatistics(totalCapsules,lockedCapsules,unlockedCapsules,favori
   <div class="stat-item">
    <div class="label">UnLocked</div>
    <div class="stat-bar">
-     <div class="bar" style="width: ${unlockedCapsules>0 ? (unlockedCapsules /totalCapsules*100):0}%;background:#00ff00;"></div>
+   <div class="bar" style="width: ${totalCapsules > 0 ? Math.min((unlockedCapsules / totalCapsules * 100), 100) : 0}%; background:#00ff00;"></div>
     </div>
      <div class="value">${unlockedCapsules}</div>
    </div>
@@ -126,9 +128,9 @@ function  displayStatistics(totalCapsules,lockedCapsules,unlockedCapsules,favori
   <div class="stat-item">
    <div class="label">Favorites</div>
     <div class="stat-bar">
-      <div class="bar" style="width: ${favoriteCount>0 ? (favoriteCount /totalCapsules*100):0}%;background:#c56cf0;"></div>
+    <div class="bar" style="width: ${totalCapsules > 0 ? Math.min((favoriteCount / totalCapsules * 100), 100) : 0}%; background:#c56cf0;"></div>
       </div>
-       <div class=value>${favoriteCount}</div>
+       <div class="value">${favoriteCount}</div>
    </div>
 
    

@@ -62,7 +62,7 @@ function displayFavorites(){
     'verySad':'😭',
   };
 
-   favoritesLetter.forEach((favo,index)=>{
+   favoritesLetter.forEach((favo)=>{       
      const moodEmoji=mood[favo.UserMood];
      const displayFavo=`
      <div class="favorite-capsule">
@@ -70,7 +70,7 @@ function displayFavorites(){
      <h3 class="favorite-title">${favo.title}</h3>
      <div class="favorite-mood">${moodEmoji}</div>
      <p class="favorite-date">🗓️ Created: ${new Date(favo.firstCreated).toLocaleDateString()}</p>
-     <button class="remove-favo"onclick="removeFromFavorite(${index})">🗑️ Remove </button>
+     <button class="remove-favo"onclick="removeFromFavorite(${favo.id})">🗑️ Remove </button>
      </div>`;
       favoriteList.innerHTML +=displayFavo;
    });
@@ -80,13 +80,17 @@ function displayFavorites(){
   displayFavorites()
 
 
-function removeFromFavorite(index){
-    if ( confirm("Are you sure you want to remove this capsule from favorites ?🧐")){
-   let favoritesLetter=JSON.parse(localStorage.getItem("favorites")) || [];
-         favoritesLetter.splice(index,1);
-          localStorage.setItem("favorites",JSON.stringify(favoritesLetter));
-            displayFavorites()
+function removeFromFavorite(id) {
+    if (confirm("Are you sure you want to remove this capsule from favorites? 🧐")) {
+        let favoritesLetter = JSON.parse(localStorage.getItem("favorites")) || [];
+      
+        favoritesLetter = favoritesLetter.filter(favo => String(favo.id) !== String(id)); //i ask ai ,since first i was using index put when i check the application i face many problem when deleting a capsule it cause to open the other one 
 
-    };
+        // 2. Save back to storage
+        localStorage.setItem("favorites", JSON.stringify(favoritesLetter));
+        
+        // 3. Refresh the UI
+        displayFavorites();
+    }
 }
   displayFavorites()

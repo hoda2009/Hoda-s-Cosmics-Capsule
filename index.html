@@ -8,15 +8,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200..900&display=swap"rel="stylesheet">
     <link rel="icon"type="imge/png" href="./assets/Canva-moon.png">
 <body>
- 
+ <audio id="sealSound"src="./assets/sound.mp3"></audio>
 <div id="preloader"></div>
 <nav class ="navBar">
     <div class="logo">🌙Hoda's Cosmic Capsule</div>
     <ul class="links"id="navlinks"><!--i try to use id since it was not working using querySelector-->
         <li><a href="index.html">Home</a></li>
            <li><a href="capsule.html">Capsules</a></li>
+             <li><a href="Favorites.html">Favorites</a></li>
               <li><a href="statistic.html">Statistics</a></li>
-               <li><a href="Favorites.html">Favorites</a></li>
+             
               <li><span class="theme-change"onclick="toggleTheme()">🌸</span></li>
     </ul>
     <div class="humburger">
@@ -34,21 +35,21 @@
 <section id="home">
     <div class="quote-Container">
         <div class="box">
-            <p id="quoteText">"Loading inspiration..."</p>
+            <p id="quoteText">"Loading quote..."</p>
             <p id="quoteAuthor"></p>
             <button class="newBtn">🔁New Quote</button>
         </div>
     </div>
     <div class="advise-weather-container">
         <div class="small-card">
-            <div class="icon">💡Advise</div> <!--HODAA change it later-->
+            <div class="icon">💡Advice</div> 
             <div class="info">
-                <p id="advise">Loading Advise...</p>
-                 <button id="advisebtn"class="newBtn">🔁New Advise</button>
+                <p id="advise">Loading Advice...</p>
+                 <button id="advisebtn"class="newBtn">🔁New Advice</button>
             </div>
         </div>
         <div class="small-card">
-              <div class="icon"id="weatherIcon">📜Fun Facts</div> <!--HODAA change it later-->
+              <div class="icon"id="weatherIcon">📜Fun Facts</div> 
             <div class="info">
                 <p id="fact">Loading fun fact...</p>
                   <button id="factbtn"class="newBtn">🔁New Fun Fact</button>
@@ -58,11 +59,10 @@
     </div>
 
 <div class="Capsule-Section">
-    <h2>
-        <span class="emoji">🔮</span><span class="title-text">Create Your Time Capsule</span> </h2>
+    <h2>🔮Create Your Time Capsule</h2> 
     <div class ="Container-form">
     <div class="group">
-        <label> <span class="emoji">📝</span><span class="first">Letter Title</span> </label>
+        <label>📝Letter Title</label>
         <input type="text"id="title" placeholder="e.g , My hopes for 2026...">
     </div>
     <div class="group">
@@ -72,7 +72,7 @@
     <div class="group">
         <label>☺️How are you feeling today ? </label>
         <div class="userMood-selected">
-            <button type="button"class="mood-button" data-mood="happy" onclick="selectMood(this)">😊</button>
+            <button type="button"class="mood-button" data-mood="happy" onclick="selectMood(this)">😊</button><!--I dont use this onclick -->
             <button type="button"class="mood-button" data-mood="sad" onclick="selectMood(this)">😓</button>
             <button type="button"class="mood-button" data-mood="excited" onclick="selectMood(this)">🤩</button>
              <button type="button"class="mood-button" data-mood="calm" onclick="selectMood(this)">😌</button>
@@ -122,8 +122,8 @@
     </div>
 
 </footer>
+
 <script src="capsule.js"></script>
 <script src="notification.js"></script>
-
 </body>
 </html>

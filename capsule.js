@@ -72,14 +72,28 @@ const button=document.querySelector(".newBtn");
      })
  }
 
+//for saving 
+window.addEventListener('DOMContentLoaded',()=>{ //fires when html doc has been completely loaded
+    const draft=localStorage.getItem('capsuleDraft');
+    if (draft){
+        document.getElementById('text').value=draft;
+
+    }
+});
+document.getElementById('text').addEventListener("input",(e)=>{
+    localStorage.setItem('capsuleDraft',e.target.value)
+    
+});
+
+
 function craeteCapsule() {
     const title = document.getElementById("title").value;
     const textContent = document.getElementById("text").value;
     const photoInput = document.getElementById('userPhoto'); 
     const unLockDay = Number(document.getElementById('unlockTime').value);
+ const textArea=document.getElementById('text');
+   
 
-     // let notificationTime=new Date(unLockDate);
-//  notificationTime.setMinutes(notificationTime.getTime() -5);
 
     
     if (!title || !textContent) {
@@ -133,16 +147,21 @@ function completeSaving(title, textContent, photoData, unLockDay) { //take 4 par
         content: textContent,
         UserMood: userSelectedMood,
         UserPhoto: photoData, // Hodaa look at localStorage !!
-        unlockDay: unLockDate.toISOString(),//convert it to a string format ,it make it easy to stoore in local storage
-        firstCreated: new Date().toISOString()
+        unlockDay: unLockDate.toISOString(),//convert a Date object into a string format ,it make it easy to store in local storage
+        firstCreated: new Date().toISOString(),//here its return a string not a date object
+        id: Date.now(),
+        NotificationSend: false
     };
+    // new Date():creates a date Object .That object represent a specific date and time
 
     let capsules = JSON.parse(localStorage.getItem("capsules")) || [];
     capsules.push(capsule);
     localStorage.setItem('capsules', JSON.stringify(capsules));
+    localStorage.removeItem('capsuleDraft'); //remove the draft 
 
 startNotificationChecker();
-    
+    const sound=document.getElementById('sealSound');
+    sound.play()
     alert("Time Capsule Sealed! 🔮");
     document.getElementById('title').value = "";
     document.getElementById("text").value = "";
@@ -177,27 +196,33 @@ function sendNotification(title,message){
 
 
 
-// to check the time every minute    
-function startNotificationChecker() { //check every 1 min
-    setInterval(()=>{
-         let capsules = JSON.parse(localStorage.getItem("capsules")) || [];
-         let userClickNow=new Date();
-        capsules.forEach((capsule,index)=>{
-            let notificationTime=newDate(capsule.notificationTime);
-        if( userClickNow>= notificationTime){
-            sendNotification(
-                "🎊🎉Capsule Unlocking Soon!,"
-                `${capsule.title} will unlock in 5 minutes !!⏰`
-            
-            );
-            capsule.NotificationSend=true;
-               localStorage.setItem('capsules', JSON.stringify(capsules));
-           
-        }  
+// to check the time every 1 minute    
+function startNotificationChecker() {
+    setInterval(() => {
+        let capsules = JSON.parse(localStorage.getItem("capsules")) || [];
+        let now = new Date(); //i get the current date and time
+        let wasUpdated = false; 
 
+        capsules.forEach((capsule) => {
+            let unlockDate = new Date(capsule.unlockDay);//to convert the date string(unlockday) into a Date object
+            let notifyAt = new Date(unlockDate.getTime() - (5 * 60 * 1000));
+
+            if (now >= notifyAt && !capsule.NotificationSend) {
+                
+                sendNotification(
+                    "🎊 Capsule Unlocking Soon!",
+                    `${capsule.title} will unlock in 5 minutes !!⏰`
+                );
+
+                capsule.NotificationSend = true;
+                wasUpdated = true;
+            }
         });
+        if (wasUpdated) {
+            localStorage.setItem('capsules', JSON.stringify(capsules));
+        }
 
-    },60000);
+    }, 60000);
 }
 
 
@@ -247,3 +272,6 @@ fetchFunFact()
 
 const changefact =document.getElementById("factbtn")
 changefact.addEventListener("click",fetchFunFact)
+
+
+

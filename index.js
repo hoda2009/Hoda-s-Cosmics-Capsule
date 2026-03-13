@@ -79,7 +79,7 @@ let capsules=JSON.parse(localStorage.getItem("capsules")) || [];
 //console.log("capsules from storage",capsules)
 if(capsules.length===0){
     console.log("NO capsules found")
-    capsuleList.innerHTML='<div class="no-capsules">NO CAPSULES YET ! GOOO Create your first TIME CAPSULE !!!⌛</div>'
+    capsuleList.innerHTML='<div class="no-capsules">You are alive.You are thinking.You are here. Future you is waiting. Dont let this moment slip away . Capture it NOW! </div>'
     return
 }
 console.log("We have capsules found ")
@@ -104,7 +104,7 @@ console.log("We have capsules found ")
     'verySad':'😭',
   }
 let allCardsHTML = "";
-  capsules.forEach((capsule,index)=>{
+  capsules.forEach((capsule,index)=>{ //i was using index for deleting ,but i change it and i use id 
      //console.log('title',capsule.title)
     const unLockDate=new Date(capsule.unlockDay);//convert string to date object
     const userClickNow=new Date ();//get  current time
@@ -121,9 +121,9 @@ let allCardsHTML = "";
     const month=Math.floor((diffDay % (1000*60*60*24*365))/(1000*60*60*24*30));
     const day=Math.floor((diffDay % (1000*60*60*24*30))/(1000*60*60*24));
     const hour=Math.floor((diffDay % (1000*60*60*24))/(1000*60*60));
-    const daysLeft=Math.floor(diffDay / oneDay)   /*Math.floor() or Math.ceil() to get a whole number of days. Math.ceil() is often used for countdowns to ensure that any partial day is counted as a full day. */
+    const daysLeft=Math.floor(diffDay / oneDay)   /*Math.floor() or Math.ceil(),Math.floor rounds Down to the nearest whole number,Math.ceil rounds up*/
     //format date
-    const dateDis= unLockDate.toLocaleDateString('en-US',
+    const dateDis= unLockDate.toLocaleDateString('en-US', //english format
         {
         year:"numeric",month:"long",day:'numeric'});
       //console.log("date:"+dateDis)
@@ -134,7 +134,7 @@ let allCardsHTML = "";
     /*if isLocked is true it will use locked ,and if its false it will use unlocked'*/
       allCardsHTML+=`
     <div class="card ${isLocked ? 'locked': 'unlocked'}"
-     onclick="${isLocked ? '' :`openTimeCapsule(${index})`}">          
+     onclick="${isLocked ? '' :`openTimeCapsule(${capsule.id})`}">          
     <div class="capsule-icon">${isLocked ? "🔒":"🔓"}</div>
     <h3 class="capsule-title">${capsule.title}</h3>
     <div class="capsule-mood">${ moodEmoji}</div>
@@ -143,34 +143,35 @@ let allCardsHTML = "";
         //`<p class="capsule-coutdown">⏰${ year}y ${month}m ${day}d ${hour} days left </p>`
         `<p class="capsule-coutdown">⏰${daysLeft} days left </p>`:
          '<p class="capsule-coutdown">✨ Ready to open !</p>'}
-     <button class="capsule-delete-button" onclick="deleteCapsule(${index})">🗑️ Delete </button>
+     <button class="capsule-delete-button" onclick="deleteCapsule(${capsule.id})">🗑️ Delete </button>
      </div>
      `
 });
 capsuleList.innerHTML = allCardsHTML;
 }
 
-function deleteCapsule(index){
-    const userConfirmed=confirm("Are you sure you want to delete this capsule ?")//true -->if
-    if (userConfirmed){
-        let capsules=JSON.parse(localStorage.getItem("capsules")) || [];
-        capsules.splice(index,1);
+function deleteCapsule(id) {
+    const userConfirmed = confirm("Are you sure you want to delete this capsule?");
+    if (userConfirmed) {
+        let capsules = JSON.parse(localStorage.getItem("capsules")) || [];
+        
+        capsules = capsules.filter(capsule => capsule.id !== id);
+        
         localStorage.setItem('capsules', JSON.stringify(capsules));
-         loadCapsulesPage()
-
+        loadCapsulesPage(); // Refresh the screen
     }
-
 }
-
-
  loadCapsulesPage()
  
 
 
- function openTimeCapsule(index){
+ function openTimeCapsule(id){
 
     const capsules=JSON.parse(localStorage.getItem("capsules")) || [];
-    const capsule=capsules[index] /*get the specific capsule by index*/
+  //FIND the specific capsule using the ID
+    const capsule = capsules.find(c => c.id === id); 
+
+    if (!capsule) return;
 
 
      const mood={
@@ -201,7 +202,7 @@ function deleteCapsule(index){
     const closeBtn=document.createElement('span');
     closeBtn.className="close-btn";
     closeBtn.innerHTML="❌";
-    closeBtn.addEventListener('click',()=>closeCapsule(index));
+    closeBtn.addEventListener('click',()=>closeCapsule());
     
 
     const header=document.createElement('div');
@@ -260,7 +261,7 @@ actions.className="letter-actions";
  const saveButton=document.createElement('button');
   saveButton.textContent='🗃️ Save to Favorites'
   saveButton.className='save-btn';
-  saveButton.addEventListener('click',()=>saveCapsule(index));
+  saveButton.addEventListener('click',()=>saveCapsule(id));
   actions.appendChild(saveButton);
 
 
@@ -307,18 +308,28 @@ document.body.appendChild(createDiv);
         closeletter.remove();
     }
  }
-
- function saveCapsule(index){
+ //take the id as parameter to identify which capsule to save !
+ function saveCapsule(id){  //i was using index but it cause to a problem when deleting
 
 
     let capsules=JSON.parse(localStorage.getItem("capsules")) || [];
-    let capsule=capsules[index];
+   const capsule = capsules.find(c => c.id === id); //to search through all capsules to find one with a matching id
 
-    let favoritesLetter=JSON.parse(localStorage.getItem("favorites")) || [];
+    if (!capsule) {
+        alert("Capsule not found!");
+        return;
+    }
+
+    let favoritesLetter=JSON.parse(localStorage.getItem("favorites")) || [];//
+    const isAlreadySaved=favoritesLetter.some(favo=>String(favo.id)===String(id));
+    if (isAlreadySaved){
+      alert("This capsule is already in your favorites🗃️! ")
+    }
+    else{
     favoritesLetter.push(capsule);
     localStorage.setItem("favorites",JSON.stringify(favoritesLetter))
    alert("Your Capsule saved to favorites !!🗃️")
-   
+    }
 
     closeCapsule()
 
@@ -358,7 +369,7 @@ document.body.appendChild(createDiv);
     'verySad':'😭',
   };
 
-   favoritesLetter.forEach((favo,index)=>{
+   favoritesLetter.forEach((favo)=>{
      const moodEmoji=mood[favo.UserMood];
      const displayFavo=`
      <div class="favorite-capsule">
@@ -366,7 +377,7 @@ document.body.appendChild(createDiv);
      <h3 class="favorite-title">${favo.title}</h3>
      <div class="favorite-mood">${moodEmoji}</div>
      <p class="favorite-date">🗓️ Created: ${new Date(favo.firstCreated).toLocaleDateString()}</p>
-     <button class="remove-favo"onclick="removeFromFavorite(${index})">🗑️ Remove </button>
+     <button class="remove-favo"onclick="removeFromFavorite('${favo.id}')">🗑️ Remove </button>
      </div>`;
       favoriteList.innerHTML +=displayFavo;
    });
