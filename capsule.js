@@ -5,29 +5,76 @@ humburger.addEventListener("click", () => {
 
     navlinks.classList.toggle('active'); 
 });
-let quoteSection={
-apiKey:"dUOvbEIjuFqGZpEVPOkxzAxekVrKazl9KbGnTjbk",
-category:"inspiratinal",
-fetchQuote:function(){
-    const url=`https://api.api-ninjas.com/v1/quotes?category=${this.category}`
-    fetch("https://api.api-ninjas.com/v1/quotes",{
-        headers:{'X-Api-Key':this.apiKey}
+/*let quoteSection = {
+  apiKey: "dUOvbEIjuFqGZpEVPOkxzAxekVrKazl9KbGnTjbk",
+  category: "inspirational",
+  fetchQuote: function () {
+    const url = `https://api.api-ninjas.com/v1/quotes?category=${this.category}`;
+
+    fetch(url, {
+      headers: { "X-Api-Key": this.apiKey },
     })
-    .then(response => response.json())
-    .then((data)=>{this.displayQuote(data[0])})
-},
-displayQuote:function(data){
-    const{quote,author}=data;
-document.getElementById('quoteText').innerText=`"${quote}"`;
-document.getElementById("quoteAuthor").innerText=`- ${author} -`
-}
-}
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.length > 0 && data[0]) {
+          this.displayQuote(data[0]);
+        }
+      }); // This closes the .then() correctly
+  }, // This closes fetchQuote AND the comma lets you start displayQuote
+
+  displayQuote: function (data) {
+    const { quote, author } = data;
+    document.getElementById("quoteText").innerText = `"${quote}"`;
+    document.getElementById("quoteAuthor").innerText = `- ${author} -`;
+  }
+};
+
+quoteSection.fetchQuote();
 const button=document.querySelector(".newBtn");
  button.addEventListener("click",function(){
     quoteSection.fetchQuote();
  });
- quoteSection.fetchQuote()
+ quoteSection.fetchQuote()*/
+let quoteSection = {
+    fetchQuote: function() {
+        const url = "https://dummyjson.com/quotes/random";
 
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error("Connection failed");
+                return response.json(); 
+            })
+            .then((data) => {
+                this.displayQuote(data);
+            })
+            .catch(err => {
+                console.log("Using backup:", err);
+                this.displayQuote({
+                    quote: "The only way to do great work is to love what you do.",
+                    author: "Steve Jobs"
+                });
+            });
+    },
+    displayQuote: function(data) {
+        const text = document.getElementById('quoteText');
+        const auth = document.getElementById("quoteAuthor");
+
+        if (text && auth) { //and
+            text.innerText = `"${data.quote}"`;
+            auth.innerText = `- ${data.author} -`;
+        }
+    }
+};
+
+const button = document.querySelector(".newBtn");
+if (button) {
+    button.addEventListener("click", function() {
+        quoteSection.fetchQuote();
+    });
+}
+
+// Loads the first quote automatically when the page starts
+quoteSection.fetchQuote();
 
  let pinkTheme=false;
     const userChoice=localStorage.getItem('theme');
@@ -121,7 +168,7 @@ function craeteCapsule() {
         completeSaving(title, textContent, null, unLockDay);
     }
 }
-
+let checkerInterval = null;
 //  This function handles the actual math and saving
 function completeSaving(title, textContent, photoData, unLockDay) { //take 4 parameters
     let addedTimeMlls; //to store the time delay in milliseconds
@@ -135,9 +182,8 @@ function completeSaving(title, textContent, photoData, unLockDay) { //take 4 par
     console.log("testing:"+nowMlls)
     const totalMlls = nowMlls + addedTimeMlls;//calculate unlock time
     const unLockDate = new Date(totalMlls);
-     let notificationTime=new Date(unLockDate);//im copy it 
-     //subtract 5 min for notification
-  notificationTime.setMinutes(notificationTime.getTime() -5);//noww  notificationTime is 5 min before the unlockedtime!
+     let notificationTime=new Date(unLockDate);//im copy the unlockdate to other variable
+
     
 
 
@@ -158,8 +204,9 @@ function completeSaving(title, textContent, photoData, unLockDay) { //take 4 par
     capsules.push(capsule);
     localStorage.setItem('capsules', JSON.stringify(capsules));
     localStorage.removeItem('capsuleDraft'); //remove the draft 
-
+ 
 startNotificationChecker();
+
     const sound=document.getElementById('sealSound');
     sound.play()
     alert("Time Capsule Sealed! 🔮");
@@ -197,7 +244,7 @@ function sendNotification(title,message){
 
 
 // to check the time every 1 minute    
-function startNotificationChecker() {
+/*function startNotificationChecker() {
     setInterval(() => {
         let capsules = JSON.parse(localStorage.getItem("capsules")) || [];
         let now = new Date(); //i get the current date and time
@@ -205,9 +252,10 @@ function startNotificationChecker() {
 
         capsules.forEach((capsule) => {
             let unlockDate = new Date(capsule.unlockDay);//to convert the date string(unlockday) into a Date object
-            let notifyAt = new Date(unlockDate.getTime() - (5 * 60 * 1000));
-
-            if (now >= notifyAt && !capsule.NotificationSend) {
+            //let notifyAt = new Date(unlockDate.getTime() - (5 * 60 * 1000)); for check every 5 min but i have 1 min 
+            // During testing (1 minute capsules):
+            let notifyAt = new Date(unlockDate.getTime() - (10 * 1000)); // 10 seconds before
+            if (now >= notifyAt && now <unlockDate &&!capsule.NotificationSend) {
                 
                 sendNotification(
                     "🎊 Capsule Unlocking Soon!",
@@ -222,8 +270,82 @@ function startNotificationChecker() {
             localStorage.setItem('capsules', JSON.stringify(capsules));
         }
 
-    }, 60000);
+    }, 1000); // 1 min =60 000 i , 1s 1000}*/
+/*function startNotificationChecker() {
+    setInterval(() => {
+        const capsules = JSON.parse(localStorage.getItem("capsules")) || [];
+        const now = Date.now();
+        let wasUpdated = false;
+
+        capsules.forEach((capsule) => {
+            const unlockTime = new Date(capsule.unlockDay).getTime();
+            
+            // Define the "Warning Zone" (e.g., between 15 seconds and 1 second before unlock)
+            const notifyLeadTime = 15 * 1000; // 15 seconds early
+            const isTimeForWarning = (now >= (unlockTime - notifyLeadTime)) && (now < unlockTime);
+
+            if (isTimeForWarning && !capsule.NotificationSend) {
+                sendNotification(
+                    "🔮 Almost Ready!",
+                    `"${capsule.title}" will be ready in a few seconds!`
+                );
+                
+                capsule.NotificationSend = true;
+                wasUpdated = true;
+                console.log("Pre-unlock notification sent!");
+            }
+        });
+
+        if (wasUpdated) {
+            localStorage.setItem('capsules', JSON.stringify(capsules));
+        }
+    }, 1000); 
+}*/
+
+function startNotificationChecker() {
+
+    if (checkerInterval !== null) {
+        console.log("Checker already running, skipping...");
+        return; 
+    }
+
+    checkerInterval = setInterval(() => {
+        // This "Heartbeat" will show every second so you know the loop is alive
+        console.log("Checker Heartbeat: Checking capsules..."); 
+
+        const capsules = JSON.parse(localStorage.getItem("capsules")) || [];
+        if (capsules.length === 0) {
+            console.log("No capsules found in localStorage.");
+        }
+
+        const now = Date.now();
+        let wasUpdated = false;
+
+        capsules.forEach((capsule) => {
+            const unlockTime = new Date(capsule.unlockDay).getTime();
+            const secondsLeft = Math.floor((unlockTime - now) / 1000);
+            
+            console.log(`Capsule "${capsule.title}" - Status: ${capsule.NotificationSend ? 'Sent' : 'Waiting'}, Seconds left: ${secondsLeft}`);
+
+            const notifyLeadTime = 20 * 1000; 
+            
+            if (!capsule.NotificationSend && now >= (unlockTime - notifyLeadTime)) {
+                sendNotification("🔮 Almost Ready!", `"${capsule.title}" unlocks soon!`);
+                capsule.NotificationSend = true;
+                wasUpdated = true;
+                console.log("!!! NOTIFICATION TRIGGERED !!!");
+            }
+        });
+
+        if (wasUpdated) {
+            localStorage.setItem('capsules', JSON.stringify(capsules));
+        }
+    }, 1000); 
 }
+
+
+startNotificationChecker();
+
 
 
 /*function testNotification(){

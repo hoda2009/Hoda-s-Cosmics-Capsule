@@ -79,7 +79,13 @@ let capsules=JSON.parse(localStorage.getItem("capsules")) || [];
 //console.log("capsules from storage",capsules)
 if(capsules.length===0){
     console.log("NO capsules found")
-    capsuleList.innerHTML='<div class="no-capsules">You are alive.You are thinking.You are here. Future you is waiting. Dont let this moment slip away . Capture it NOW! </div>'
+  capsuleList.innerHTML = `
+        <div class="no-capsules">
+            <p>You are alive. You are thinking. You are here.</p>
+            <p>Future you is waiting. Don't let this moment slip away.</p>
+            <a href="index.html" class="cosmic-link">Capture it <span class="glow">NOW!</span></a>
+        </div>
+    `;
     return
 }
 console.log("We have capsules found ")

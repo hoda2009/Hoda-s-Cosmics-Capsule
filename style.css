@@ -936,7 +936,70 @@ input[type="file"]{
     
 
 }
+.cosmic-link {
+    display: inline-block;
+    margin-top: 20px;
+    border:3px solid #d8b36b;
+    text-decoration: none;
+    /*border: 1px solid #7b2ff7;*/
+    padding: 10px 20px;
+    border-radius: 10px;
+    color:#ffffff;
+    font-family: 'Orbitron', sans-serif;
+    transition: 0.3s;
+ background: #262646;;
+}
 
+
+[data-theme="pink"] .cosmic-link {
+    color:#0a1249;
+      border:3px solid #d8b36b;
+      background: rgba(0, 0, 0, 0.3) ;
+
+
+
+}
+
+@media(max-width:650px){
+    .cosmic-link{
+        font-size: 0.8em;
+    }
+
+}
+.cosmic-link .glow {
+   /* color: #7b2ff7;
+    text-shadow: 0 0 10px #7b2ff7;*/
+               text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7), 0 0 5px rgba(221, 191, 21, 0.5);
+            background: linear-gradient(90deg,
+                    #fff7d6,
+                    #e6c988,
+                    #f7e9b5,
+                    #d8b36b,
+                    #fff7d6, );
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            /*i add this just to remove the error on line 74 (-webkit-background-clip)*/
+            -webkit-text-fill-color: rgb(215, 206, 151);
+            text-shadow: 2px 2px 5px rgba(255, 165, 0, 0.5),
+                -2px -2px 5px rgba(218, 153, 61, 0.4);
+            background: linear-gradient(to right, #fff7d6 0%,
+                    #e6c988 40%,
+                    #d8b36b 70%,
+                    #fff7d6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            color: transparent;
+    font-weight: bold;
+    
+}
+
+.cosmic-link:hover {
+    background: rgba(123, 47, 247, 0.2);
+    transform: translateY(-3px);
+}
 
 
 .letter-content{
@@ -1098,6 +1161,7 @@ input[type="file"]{
     border-left: 3px solid rgba(255,215,0,0.4);
 
 }
+
 
 .capsule-content{
     padding:25px;
