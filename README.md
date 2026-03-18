@@ -2,7 +2,7 @@
 
 A Time Capsule Web Application
 
-## 🌐[live Website]()
+## 🌐[live Website](https://hodacosmiccapsule.netlify.app/)
 
 ## 📚 About This Project 
 
