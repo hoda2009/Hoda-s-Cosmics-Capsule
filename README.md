@@ -43,8 +43,8 @@ Last year, our school had an activity where we wrote letters to ourselves .We we
 
 ### ⚡Future Improvements 
 - **AI Assistant:** Integrate an AI API to provide writing prompts, offer support to users as they write, and help them reflect on their current journey .
-- **Emotional Analytics:**Use AI to analyze the "mood" of each capsule and save these emotional snapshots to track personal growth over time .
-- **Multi-language Support:**Integrate a translation toggle (e.g, Arabic)to make the "Cosmic Capsule" accessible to a global audience .
+- ** Emotional Analytics: **Use AI to analyze the "mood" of each capsule and save these emotional snapshots to track personal growth over time .
+- ** Multi-language Support: **Integrate a translation toggle (e.g, Arabic)to make the "Cosmic Capsule" accessible to a global audience .
 - **Theme Personalization:**Implement a style switcher with 5 or more distinct color palettes so users can customize their experience.
 - **Cloud Synchronization:**Transition from Local Storage to cloud database so users can access their capsules from any device or browser!
 - **Advanced Media Attachments:**Expand the upload feature to support voice notes or short video messages for a more immersive memory .
