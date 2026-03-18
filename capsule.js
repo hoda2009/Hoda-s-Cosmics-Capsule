@@ -91,7 +91,7 @@ quoteSection.fetchQuote();
  
  function toggleTheme(){
     const themeChange=document.querySelector(".theme-change");
-    const bodyHTML=document.documentElement;
+    const bodyHTML=document.documentElement;//hodaa it will return <html>tag (the root element)
     if(pinkTheme){
          bodyHTML.setAttribute('data-theme','cosmic')
          themeChange.textContent="🪷"
@@ -107,6 +107,10 @@ quoteSection.fetchQuote();
     }
 
  }
+
+let recordedAudioBase64 = null; // This will stay null until a recording is finished
+
+
 
  let userSelectedMood
  function selectMood(btn){ //for user clicked
@@ -143,7 +147,7 @@ function craeteCapsule() {
 
 
     
-    if (!title || !textContent) {
+    if (!title || !textContent) {    //logical not operator 
         alert("💌 Please fill in title and letter 🔮!!");
         return;
     }
@@ -157,20 +161,23 @@ function craeteCapsule() {
 
     if (file) {
         const reader = new FileReader(); // hodaa its create a FileReader object
-        reader.onload = function(e) { 
+        reader.onload = function(e) { //when you read this file (your done loading) run this fun tion
             const base64Image = e.target.result;
             // Pass the image data to the save function
-            completeSaving(title, textContent, base64Image, unLockDay);
+            //completeSaving(title, textContent, base64Image, unLockDay);this is before i add the voice 
+            completeSaving(title, textContent, base64Image, recordedAudioBase64, unLockDay);
         };//when done reading ,run this code
         reader.readAsDataURL(file); //convert into string
     } else {
         // No photo? Pass null
-        completeSaving(title, textContent, null, unLockDay);
+        //completeSaving(title, textContent, null, unLockDay);
+        completeSaving(title, textContent, null, recordedAudioBase64, unLockDay);
     }
 }
 let checkerInterval = null;
 //  This function handles the actual math and saving
-function completeSaving(title, textContent, photoData, unLockDay) { //take 4 parameters
+ //function completeSaving(title, textContent, photoData, unLockDay) 
+ function completeSaving(title, textContent,photoData, audioData, unLockDay){ //take 5 parameters
     let addedTimeMlls; //to store the time delay in milliseconds
     if (unLockDay === 1) {   //i calculate time in milliseconds
         addedTimeMlls = 1 * 60 * 1000; //only for 1 minute
@@ -181,9 +188,10 @@ function completeSaving(title, textContent, photoData, unLockDay) { //take 4 par
     const nowMlls = Date.now();//to get the current timestamp in milliseconds
     console.log("testing:"+nowMlls)
     const totalMlls = nowMlls + addedTimeMlls;//calculate unlock time
-    const unLockDate = new Date(totalMlls);
-     let notificationTime=new Date(unLockDate);//im copy the unlockdate to other variable
+    const unLockDate = new Date(totalMlls);//object
+     let notificationTime=new Date(unLockDate);//im copy the unlockdate to other variable //Example Wensday  March 18 2025 10:40:00 GMT+
 
+    
     
 
 
@@ -196,7 +204,8 @@ function completeSaving(title, textContent, photoData, unLockDay) { //take 4 par
         unlockDay: unLockDate.toISOString(),//convert a Date object into a string format ,it make it easy to store in local storage
         firstCreated: new Date().toISOString(),//here its return a string not a date object
         id: Date.now(),
-        NotificationSend: false
+        NotificationSend: false,
+        UserAudio: audioData,
     };
     // new Date():creates a date Object .That object represent a specific date and time
 
@@ -209,13 +218,20 @@ startNotificationChecker();
 
     const sound=document.getElementById('sealSound');
     sound.play()
+
+
     alert("Time Capsule Sealed! 🔮");
     document.getElementById('title').value = "";
     document.getElementById("text").value = "";
     document.getElementById("userPhoto").value = ""; // Clear file input
     userSelectedMood = "";
+    audioPlaySection.style.display = 'none'; 
+recordingControl.style.display = 'flex';
+timerDisplay.innerText = "00:00";
+recordButton.innerHTML = "🎤 Record";
     document.querySelectorAll(".mood-button").forEach((button) => {
         button.classList.remove('selected');
+
     });
 }
 //Browser Notification API
@@ -303,12 +319,11 @@ function sendNotification(title,message){
 }*/
 
 function startNotificationChecker() {
-
-    if (checkerInterval !== null) {
+    if (checkerInterval !== null) {   //prevents multiple timers from running at once
         console.log("Checker already running, skipping...");
         return; 
     }
-
+    //to start check every second
     checkerInterval = setInterval(() => {
         // This "Heartbeat" will show every second so you know the loop is alive
         console.log("Checker Heartbeat: Checking capsules..."); 
@@ -316,20 +331,23 @@ function startNotificationChecker() {
         const capsules = JSON.parse(localStorage.getItem("capsules")) || [];
         if (capsules.length === 0) {
             console.log("No capsules found in localStorage.");
+            return
         }
-
+        //i start the time check setup
         const now = Date.now();
         let wasUpdated = false;
+         const notifyLeadTime = 20 * 1000; //20 second before unlock (it still in milliseconds)
 
         capsules.forEach((capsule) => {
             const unlockTime = new Date(capsule.unlockDay).getTime();
-            const secondsLeft = Math.floor((unlockTime - now) / 1000);
+            const secondsLeft = Math.floor((unlockTime - now) / 1000); //i calculates seconds remanining until unlock
             
-            console.log(`Capsule "${capsule.title}" - Status: ${capsule.NotificationSend ? 'Sent' : 'Waiting'}, Seconds left: ${secondsLeft}`);
+            //console.log(`Capsule "${capsule.title}" - Status: ${capsule.NotificationSend ? 'Sent' : 'Waiting'}, Seconds left: ${secondsLeft}`);
 
-            const notifyLeadTime = 20 * 1000; 
-            
-            if (!capsule.NotificationSend && now >= (unlockTime - notifyLeadTime)) {
+
+
+            //Notification will send ONLYY if : Notification hasnt been sent yet   AND current time is within 20 seconds of unlock time
+            if (!capsule.NotificationSend && now >= (unlockTime - notifyLeadTime)) { //remmember hoda that LOGICAL NOT operator return Boolean values (here if it true will cotinue)
                 sendNotification("🔮 Almost Ready!", `"${capsule.title}" unlocks soon!`);
                 capsule.NotificationSend = true;
                 wasUpdated = true;
@@ -397,3 +415,89 @@ changefact.addEventListener("click",fetchFunFact)
 
 
 
+//for voice message (I ask AI in order to implemented this )
+let mediaRecorder;
+let audioChunks = [];//stores the audio data
+let timerInterval; //to stop the stop watch
+
+const recordButton = document.getElementById('recordButton');
+const recordAgain = document.getElementById('recordAgain');
+const audioPlayback = document.getElementById('audioPlayback');
+const audioPlaySection = document.getElementById('audioPlay');
+const recordingControl = document.querySelector('.recording-Control');
+const timerDisplay = document.getElementById('timer');
+
+// START/STOP RECORDING
+recordButton.addEventListener('click', async () => { //hodaa asyn and await work like a team (this fun might need to wait )
+    if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+        try {
+            //  asking for microphone permission
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true }); //without await ,the code would continue running before the user responds 
+            //create a recorder
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];//clear previous recording
+
+            mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+             
+        //when recording stops
+            mediaRecorder.onstop = () => {
+                //here they combine all audio pieces into one file
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                audioPlayback.src = URL.createObjectURL(audioBlob);//create playable audio
+                
+
+                //and then they start to convert to base 64 
+                const reader = new FileReader();
+                reader.readAsDataURL(audioBlob);
+                reader.onloadend = () => {
+                    recordedAudioBase64 = reader.result; // Saves to global variable
+                    console.log("Audio captured and ready for sealing!");
+                };
+
+                recordingControl.style.display = 'none';
+                audioPlaySection.style.display = 'flex';
+            };
+           
+
+            //it will start RECORDING 
+            mediaRecorder.start();
+            startTimer();
+            recordButton.innerHTML = "⏹️ Stop";
+        } catch (err) {
+            alert("Microphone access denied!");
+        }
+    } else {
+        mediaRecorder.stop();
+        stopTimer();
+        recordButton.innerHTML = "🎤 Record";
+    }
+});
+
+
+recordAgain.addEventListener('click', () => {
+    recordedAudioBase64 = null; // Clear old recording
+    audioPlayback.src = "";
+    audioPlaySection.style.display = 'none';
+    recordingControl.style.display = 'flex';
+    timerDisplay.innerText = "00:00";
+    recordButton.innerHTML = "🎤 Record";
+});
+
+function startTimer() {
+    let seconds = 0;
+    timerInterval = setInterval(() => {
+        seconds++;
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = (seconds % 60).toString().padStart(2, '0');
+        timerDisplay.innerText = `${mins}:${secs}`;
+
+        if (seconds >= 60) {
+            mediaRecorder.stop();
+            stopTimer();
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+}

@@ -89,7 +89,7 @@ if(capsules.length===0){
     return
 }
 console.log("We have capsules found ")
- capsuleList.innerHTML = "";
+ capsuleList.innerHTML = ""; //clear
 
 //to show for the user as emoji not text inside the card
 
@@ -122,7 +122,7 @@ let allCardsHTML = "";
      const oneDay = 1000 * 60 * 60 * 24;
 
     const diffDay= unLockDate-userClickNow //difference in millisecond
-    const year=Math.floor(diffDay/(1000*60*60*24*365));
+    const year=Math.floor(diffDay/(1000*60*60*24*365));                          //no need for the year -->hour i was first create them in order to do a countdawn timer
     //remaining after year
     const month=Math.floor((diffDay % (1000*60*60*24*365))/(1000*60*60*24*30));
     const day=Math.floor((diffDay % (1000*60*60*24*30))/(1000*60*60*24));
@@ -243,7 +243,33 @@ function deleteCapsule(id) {
    userInfo.appendChild(unlockDate)
    
 
-   //create content section 
+
+
+let audioWrapper;
+if (capsule.UserAudio) {
+    audioWrapper = document.createElement('div');
+    audioWrapper.className = "audio-intro-wrapper";
+
+    const audioLabel = document.createElement('p');
+    audioLabel.textContent = "🔊 Listen to the past:";
+    audioLabel.style.fontSize = "0.8rem";
+    audioLabel.style.marginBottom = "5px";
+    audioLabel.style.color = "#ffd700"; // Cosmic Gold
+
+    const audio = document.createElement('audio');
+    audio.src = capsule.UserAudio;
+    audio.controls = true;
+    audio.className = "capsule-audio-player";
+
+    audioWrapper.appendChild(audioLabel);
+    audioWrapper.appendChild(audio);
+    
+
+}
+
+
+
+   //create content section
 
    const contentDiv=document.createElement('div');
    contentDiv.className="capsule-content";
@@ -274,11 +300,19 @@ actions.className="letter-actions";
 content.appendChild(closeBtn);
 content.appendChild(header);
 content.appendChild(userInfo);
+
+if(audioWrapper){
+  content.appendChild(audioWrapper)
+}
+
 content.appendChild(contentDiv);
 content.appendChild(actions);
 
 createDiv.appendChild(content)
 document.body.appendChild(createDiv);
+
+
+
 
 
   /*const openCapsule=.`
@@ -325,9 +359,10 @@ document.body.appendChild(createDiv);
         alert("Capsule not found!");
         return;
     }
-
+  
+    //some() : its check if at least one item matches the condition
     let favoritesLetter=JSON.parse(localStorage.getItem("favorites")) || [];//
-    const isAlreadySaved=favoritesLetter.some(favo=>String(favo.id)===String(id));
+    const isAlreadySaved=favoritesLetter.some(favo=>String(favo.id)===String(id));//here i check if this capsule is already saved (i comparing ids as strings)
     if (isAlreadySaved){
       alert("This capsule is already in your favorites🗃️! ")
     }

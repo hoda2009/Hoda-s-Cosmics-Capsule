@@ -70,6 +70,22 @@
         <textarea id="text" placeholder="Dear future me !, Today I feel.... I hope.... I dream...., Making memories .."></textarea>
     </div>
     <div class="group">
+        <label>🎙️ Voice Message</label>
+        <div class="voice-Recorder">
+            <div class="recording-Control">
+                <button id="recordButton">
+                    <span class="icon">🎤</span>
+                    <span class="record">Record</span>
+                </button>
+                <span id="timer">00:00</span>
+            </div>
+            <div id="audioPlay"style="display:none"> <!--to show after recording-->
+                <audio id="audioPlayback" controls></audio>
+                <button id="recordAgain">Record Again</button>
+            </div>
+        </div>
+    </div>
+    <div class="group">
         <label>☺️How are you feeling today ? </label>
         <div class="userMood-selected">
             <button type="button"class="mood-button" data-mood="happy" onclick="selectMood(this)">😊</button><!--I dont use this onclick -->

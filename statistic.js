@@ -68,7 +68,7 @@ function calculateStatistics(){
 
         }
      });
-     const firstCapsuleCreated=capsules.length> 0 ? new Date(capsules[0].firstCreated).toLocaleDateString():" N/A"
+     const firstCapsuleCreated=capsules.length> 0 ? new Date(capsules[0].firstCreated).toLocaleDateString():" N/A" //not applicable
      const lastCapsuleCreated=capsules.length>0 ? new Date(capsules[capsules.length - 1 ].firstCreated).toLocaleDateString():'N/A'
 
      displayStatistics(totalCapsules,lockedCapsules,unlockedCapsules,favoriteCount,moodCount,firstCapsuleCreated,lastCapsuleCreated);
@@ -123,11 +123,10 @@ const totalBarWidth = totalCapsules > 0 ? "100%" : "0%";
     </div>
      <div class="value">${unlockedCapsules}</div>
    </div>
-
-
+                                                                              
   <div class="stat-item">
    <div class="label">Favorites</div>
-    <div class="stat-bar">
+    <div class="stat-bar">                                 
     <div class="bar" style="width: ${totalCapsules > 0 ? Math.min((favoriteCount / totalCapsules * 100), 100) : 0}%; background:#c56cf0;"></div>
       </div>
        <div class="value">${favoriteCount}</div>
@@ -138,14 +137,15 @@ const totalBarWidth = totalCapsules > 0 ? "100%" : "0%";
    <div class="stat-item">
    <div class="label">Mood Distribution</div>
    <div class="mood-dist">
-   ${Object.keys(moodCount).map(md=>//I create an array for the mood
+   ${Object.keys(moodCount).map(md=>//I create an array for the mood =>its give like ["happy","sad"]
+    // i use map to transforms each mood into HTML , like "happy"=> <div>😊 happy 5</div>
       `<div class="mood-item">
       <span class="mood-emoji">${mood[md]}</span>
       <span class="mood-name">${md}</span>
       <span class="mood-count">${moodCount[md]}</span>
       </div>
     
-     `).join('')}
+     `).join('')}  
      </div>
      </div>
  
@@ -161,11 +161,8 @@ const totalBarWidth = totalCapsules > 0 ? "100%" : "0%";
       <div class="value">${lastCapsuleCreated}</div>
    </div>
 
-
-
-  
   `
-
+//join("") used to convert an array of elements into single string ,if i dont use jointhe commas would appaer on the webpage
   statisticList.innerHTML=displayStatistic;
 
 
