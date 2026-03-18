@@ -20,7 +20,7 @@ Last year, our school had an activity where we wrote letters to ourselves .We we
 - Statistics Page
 - Theme Toggle (Dark/Light)
 - Responsive Design
-- Notifications (5 minutes before unlock)
+- Notifications
 - Auto save (where the user writes the letter)
 - Interactive Audio: Featuring a **magical** sound effect upon successfully locking a capsule 
 
