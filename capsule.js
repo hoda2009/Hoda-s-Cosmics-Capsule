@@ -415,7 +415,7 @@ changefact.addEventListener("click",fetchFunFact)
 
 
 
-//for voice message (I ask AI in order to implemented this )
+//for voice message
 let mediaRecorder;
 let audioChunks = [];//stores the audio data
 let timerInterval; //to stop the stop watch
