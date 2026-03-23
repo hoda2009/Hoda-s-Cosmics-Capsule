@@ -1595,10 +1595,10 @@ margin-bottom: 50px;
 }
 @media(max-width:700px){
  .rights p{
-    font-size: 1.2em;
+    font-size: 1em;
  }  
  .footer-sec h3{
-    font-size: 1em;
+    font-size: 0.8em;
  }
 
 }
