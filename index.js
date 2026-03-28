@@ -114,20 +114,30 @@ let allCardsHTML = "";
      //console.log('title',capsule.title)
     const unLockDate=new Date(capsule.unlockDay);//convert string to date object
     const userClickNow=new Date ();//get  current time
+
+
+    const todayMid = new Date(userClickNow.getFullYear(), userClickNow.getMonth(), userClickNow.getDate()).getTime();
+    const unlockMid = new Date(unLockDate.getFullYear(), unLockDate.getMonth(), unLockDate.getDate()).getTime();
+
+    const isLocked = todayMid < unlockMid;
     //check if locked or unlocked
-    const isLocked=userClickNow<(unLockDate); //if now is before unlockDate it will be locked ,,and now is after unlok date it will be unlocked
+
+     //I change it its calculate the hour and min which confused the user
+    //const isLocked=userClickNow<(unLockDate); //if now is before unlockDate it will be locked ,,and now is after unlok date it will be unlocked
      console.log(isLocked)
 
     //CALCULATE TIME LEFT
      const oneDay = 1000 * 60 * 60 * 24;
 
-    const diffDay= unLockDate-userClickNow //difference in millisecond
+    //const diffDay= unLockDate-userClickNow //difference in millisecond
+    const diffDay = unlockMid - todayMid;
     const year=Math.floor(diffDay/(1000*60*60*24*365));                          //no need for the year -->hour i was first create them in order to do a countdawn timer
     //remaining after year
     const month=Math.floor((diffDay % (1000*60*60*24*365))/(1000*60*60*24*30));
     const day=Math.floor((diffDay % (1000*60*60*24*30))/(1000*60*60*24));
     const hour=Math.floor((diffDay % (1000*60*60*24))/(1000*60*60));
-    const daysLeft=Math.floor(diffDay / oneDay)   /*Math.floor() or Math.ceil(),Math.floor rounds Down to the nearest whole number,Math.ceil rounds up*/
+    //const daysLeft=Math.floor(diffDay / oneDay)   /*Math.floor() or Math.ceil(),Math.floor rounds Down to the nearest whole number,Math.ceil rounds up*/
+     const daysLeft = Math.max(0, Math.floor(diffDay / oneDay));
     //format date
     const dateDis= unLockDate.toLocaleDateString('en-US', //english format
         {
