@@ -40,12 +40,13 @@ body{
 }
 .logo{
     font-size: 1.9em;
-    font-weight: 900;
+    font-weight: 700;
     background: linear-gradient(45deg,#ffd700,#ff6b6b);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
     text-shadow: 0 0 15px rgba(249, 252, 87, 0.5), 0 0 30px rgba(238, 32, 13, 0.6);
+    font-family: sans-serif;
 }
 [data-theme="pink"] .logo{
 background: linear-gradient(45deg, #38ef7d, #e879f9) !important;
@@ -83,9 +84,10 @@ background: linear-gradient(45deg, #38ef7d, #e879f9) !important;
 .links a{
     display: inline-block;
     font-size: 1.4em;
-    font-weight: 900;
+    font-weight: 700;
     text-decoration: none;
     padding:10px 20px;
+    font-family: sans-serif;
    
     border-radius: 10px;
      background: linear-gradient(90deg,#e2c207,#fb6262,#cfb20b);
@@ -119,6 +121,7 @@ background: linear-gradient(45deg, #38ef7d, #e879f9) !important;
     
     backdrop-filter: blur(12px); 
     -webkit-backdrop-filter: blur(12px);
+ 
     
     color: var(--text-color) !important;
     font-size: 1.1em; 
@@ -281,8 +284,8 @@ box-shadow:
 
 
 #quoteText{
-    font-size: 1.4em;
-    font-style: italic;
+    font-size: 1.3em;
+         font-family: "Inter", sans-serif;
      /*color:#deaada;*/
      color:var(--text-color);
     line-height: 1.6;
@@ -324,6 +327,7 @@ box-shadow:
     font-size: 1em;
     transition: transform 0.3s;
     font-weight: 700;
+    font-family: "Inter", sans-serif;
 }
 [data-theme="pink"] .newBtn{
     background: linear-gradient(45deg, #3ccd4e, #5e397bd9);
@@ -610,7 +614,8 @@ background:rgba(10, 10, 46,0.5)!important;
      /*border-bottom: 1px solid solid rgba(255,215,0,0.2);*/
     text-shadow: 0 0 20px rgba(255,215,0,0.5);
     padding:25px 20px 20px ;
-    font-family: sans-serif;
+        font-family:"Inter",sans-serif;
+        font-weight: 700;
     
     
 }
@@ -646,10 +651,10 @@ background:rgba(10, 10, 46,0.5)!important;
     display: block;
     margin-bottom: 25px;
     color:#ffd700; /* i should change it later */
-font-weight: 900;
+font-weight: 700;
 font-size: 1.1em;
 letter-spacing: 1.1px;
-font-family: sans-serif;
+    font-family: "Inter", sans-serif;
 
 }
 
@@ -663,7 +668,8 @@ font-family: sans-serif;
     border:2px solid rgba(255,215,0,0.25);
    background: linear-gradient(135deg,rgba(0,0,0,0.5),rgba(20,20,40,0.7));
    color:whitesmoke;
-   font-family: Georgia, serif;
+   font-style: italic;
+   font-family:sans-serif;
    font-size: 1em;
    transition: all 0.3s;
 
@@ -745,7 +751,7 @@ input[type="file"]{
     padding: 18px;
     border:2px solid rgba(255,215,0,0.5);
     background: linear-gradient(135deg,rgba(0,0,0,0.5),rgba(20,20,40,0.7));
-   font-family: Georgia, serif;
+   font-family:  sans-serif;
    font-size: 1.05em;
    transition: all 0.3s;
    color:#ffffff;
@@ -760,7 +766,7 @@ input[type="file"]{
     background-color:#0B0d17 ;
     color:#ffffff;
     padding: 15px ;
-    font-family: Georgia, serif;
+    font-family: sans-serif;
 }
 
 
@@ -771,7 +777,7 @@ input[type="file"]{
     max-width: 400px;
    
     font-size: 1.3em;
-    font-weight: 900;
+    font-weight: 700;
     background: linear-gradient(135deg,#ffd700 0%,#ff6b6b 25%,#c56cf0 50%,#7b68ee 75%,#ffd700 100%);/*new method*/
     border-radius: 18px;
     background-size: 300% 300%;
@@ -780,10 +786,12 @@ input[type="file"]{
     border: none;
     transition: all 0.3s ease;
     letter-spacing: 3px;
-    font-family: Georgia, serif;
+        font-family: "Inter", sans-serif;
     box-shadow: 0 0 30px rgba(255,215,0.03),0 0 30px rgba(0,0,0,0.3);
     padding:8px;
     animation:cosmicButton 4s ease infinite;
+    line-height: 2;
+
     
 
 }
@@ -815,7 +823,10 @@ input[type="file"]{
     font-size: 2em;
     color:var(--gold-color);
     text-shadow: 0 0 20px var( --glow-color);
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.5px;
 }
 
 #capsuleList{
@@ -872,6 +883,7 @@ input[type="file"]{
     color:var(--gold-color);
     font-size: 1.5em;
     margin-bottom: 19px;
+        font-family:"Inter",sans-serif;
 }
 .capsule-mood{
     font-size: 2em;
@@ -883,12 +895,16 @@ input[type="file"]{
     color:var(--text-color);
     font-size: 1em;
     opacity:0.8;
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
     
 }
 .capsule-coutdown{
     color:var(--gold-color);
-    font-size: 1em;
+    font-size: 0.9em;
     margin-bottom: 19px;
+        font-family: "Inter", sans-serif;
+    font-weight: 500;
 }
 
 
@@ -901,6 +917,7 @@ input[type="file"]{
     color: #ff6b6b;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-weight: bold;
 
 
 }
@@ -1106,7 +1123,8 @@ input[type="file"]{
     font-size: 1.8em;
     margin: 0;
     letter-spacing: 2px;
-    font-weight: 900;
+    font-weight: 700;
+      font-family:"Inter",sans-serif;
 
 }
 
@@ -1120,6 +1138,7 @@ input[type="file"]{
     margin:15px;
     text-shadow: 0 0 10px rgba(255,215,0,0.4);
     text-transform: capitalize;
+    font-family:"Inter",sans-serif;
     letter-spacing: 1px;
 }
 @media(max-width:700px){
@@ -1303,6 +1322,7 @@ filter:sepia(20%)contrast(110%)brightness(105%) ;
     opacity: 0.7;
     padding-top: 50px;
     line-height: 1.5;
+    font-family: "Inter", sans-serif;
 }
 #favoritesList{
     display: grid;
@@ -1322,6 +1342,9 @@ filter:sepia(20%)contrast(110%)brightness(105%) ;
      color: var(--gold-color);
 margin-bottom: 50px;
   text-shadow: 0 0 20px var(--glow-color);
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.5px;
 }
 
 
@@ -1358,6 +1381,7 @@ margin-bottom: 50px;
     margin-bottom:20px ;
     color:var(--gold-color);
     text-shadow: 0 0 10px rgba(255,215,0,0.3);
+    font-family: "Inter", sans-serif;
 }
 .favorite-mood{
     font-size:2.5em ;
@@ -1366,10 +1390,11 @@ margin-bottom: 50px;
 
 }
 .favorite-date{
-    font-size: 1.5em;
+    font-size: 1.2em;
     color:whitesmoke;
     opacity: 0.8;
     margin-bottom: 25px;
+    font-family: "Inter", sans-serif;
 }
 .remove-favo{
     font-size: 1em;
@@ -1380,7 +1405,7 @@ margin-bottom: 50px;
     border-radius: 10px;
     color: #ff6b6b;
     cursor: pointer;
-    font-weight: 800;
+    font-weight:bold;
     transition: all 0.3s ease ;
 
 }
@@ -1407,6 +1432,10 @@ margin-bottom: 50px;
     color:var(--gold-color);
     text-shadow: 0 0 20px var(--glow-color);
     margin-bottom: 50px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+   
 }
 
 #statisticList{
@@ -1436,10 +1465,12 @@ margin-bottom: 50px;
 }
 
 .label{
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: 800;
     margin-bottom: 15px;
     color:var(--gold-color);
+        font-family: "Inter", sans-serif;
+        font-weight: 700;
 }
 .bar{
     width: 100%;
@@ -1455,7 +1486,9 @@ margin-bottom: 50px;
     color: var(--text-color);
     font-size: 1.5em;
     text-align: center;
-    font-weight: bold;
+    font-weight:700;
+        font-family: "Inter", sans-serif;
+  
 }
 
 .mood-dist{
@@ -1487,8 +1520,12 @@ margin-bottom: 50px;
 }
 .mood-name{
     color: var(--text-color);
-    font-size: 1em;
+    font-size: 0.9em;
     text-transform: capitalize;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+    
+        
 }
 .mood-count{
     color: var(--gold-color);
@@ -1511,6 +1548,7 @@ margin-bottom: 50px;
 
 .value{
     font-size: 1.2em;
+      
 }
 }
 
@@ -1539,6 +1577,9 @@ margin-bottom: 50px;
     0 0 20px rgba(255,215,0,0.3);
     margin-bottom: 5px;
     animation:footerTitle 3s ease-in-out infinite;
+    font-family: "Inter", sans-serif;
+    letter-spacing: 0.1em;
+    font-weight: 700;
 }
 @keyframes footerTitle {
     0% ,100%{
@@ -1548,22 +1589,27 @@ margin-bottom: 50px;
     50%{
         text-shadow:0 0 15px rgba(255,215,0,0.8),
         0 0 30px rgba(255.215,0,0.5);
-    }
+    };
+   
     
 }
 
 .footer-sec p{
     color:whitesmoke;
-   font-size: 0.9em;
+   font-size: 0.8em;
    opacity: 0.8;
    line-height:1.8;
    margin-top: 5px;
        padding-top: 20px;
+     font-family: "Inter", sans-serif;
+       letter-spacing:0.1em;
+       font-weight: 500;
 }
 
 .rights{
     text-align: center;
     padding-top: 10px;
+
 
 }
 
@@ -1576,8 +1622,11 @@ margin-bottom: 50px;
     background-clip: text;
     text-shadow: 0 0 15px rgba(249, 252, 87, 0.1), 0 0 30px rgba(238, 32, 13, 0.4);
     border-top: 1px solid rgba(255,215,0,0.2);
-    padding-top:15px;
+    padding-top:20px;
        animation:footerTitle 3s ease-in-out infinite;
+       font-family: sans-serif;
+       font-weight: 600;
+       font-family: "Inter", sans-serif;
 }
 
 
@@ -1605,9 +1654,8 @@ margin-bottom: 50px;
 
 @media(max-width:600px){
     .finish-btn{
-        font-size:0.9em;
-        width:80%;
-        padding: 12px;
+        font-size:1em;
+    padding: 10px;
     }
 
    .newBtn {
@@ -1636,15 +1684,20 @@ margin-bottom: 50px;
 #advise{
     color: whitesmoke;
     line-height: 1.9;
-    font-size: 1.1em;
-    font-family: "Inter",sans-serif;
+    font-size: 1.2em;
+       font-family: "Inter", sans-serif;
+    font-weight: 500;
+    text-shadow: rgba(255, 255, 255, 0.3) 0px 0px 10px;
 }
 
 #fact{
      color: whitesmoke;
     line-height: 1.9;
-    font-size: 1.1em;
-    font-family: "Inter",sans-serif;
+    font-size: 1.2em;
+        font-family: "Inter", sans-serif;
+text-shadow: rgba(255, 255, 255, 0.3) 0px 0px 10px;
+    font-weight: 500;
+
 
 }
 
@@ -1676,6 +1729,8 @@ color:#c6f114;
   
 }
 [data-theme="pink"]  .group label {
+
+    
 color:#c5ed1b
   
 }
