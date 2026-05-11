@@ -1684,7 +1684,6 @@ margin-bottom: 50px;
 }
 #advise{
     color: whitesmoke;
-    line-height: 1.9;
     font-size: 1.2em;
        font-family: "Inter", sans-serif;
     font-weight: 500;
@@ -1693,7 +1692,6 @@ margin-bottom: 50px;
 
 #fact{
      color: whitesmoke;
-    line-height: 1.9;
     font-size: 1.2em;
         font-family: "Inter", sans-serif;
 text-shadow: rgba(255, 255, 255, 0.3) 0px 0px 10px;
@@ -1788,9 +1786,9 @@ color:#c5ed1b
 
 @media(max-width:600px){
     #quoteText {
-        font-family: 'Space Grotesk';
-        font-weight: 300;
-        font-style: italic;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+       
     
 
     }
