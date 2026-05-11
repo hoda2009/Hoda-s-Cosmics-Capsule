@@ -854,9 +854,10 @@ input[type="file"]{
 }
  
 .no-capsules{
+     font-family: "Inter", sans-serif;
     text-align: center;
     color: var(--text-color);
-    padding: 50px;
+    padding: 30px;
     font-size:1.9em;
     grid-column: 1/-1; /*span across all column*/
     opacity: 0.7;
